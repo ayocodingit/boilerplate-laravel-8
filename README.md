@@ -2,6 +2,7 @@
 
 A Laravel starter project template.
 
+[![Build Status](https://travis-ci.com/ayocodingit/boilerplate-laravel-8.svg?branch=master)](https://travis-ci.com/ayocodingit/boilerplate-laravel-8)
 <a href="https://codeclimate.com/github/ayocodingit/boilerplate-laravel-8/maintainability"><img src="https://api.codeclimate.com/v1/badges/021fe7fdf0dc5a71adbc/maintainability" /></a>
 <a href="https://codeclimate.com/github/ayocodingit/boilerplate-laravel-8/test_coverage"><img src="https://api.codeclimate.com/v1/badges/021fe7fdf0dc5a71adbc/test_coverage" /></a>
 
