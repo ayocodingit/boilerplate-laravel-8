@@ -1,62 +1,59 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Aplikasi Reservasi Aset
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Backend API untuk Aplikasi Reservasi Aset di Jabar Digital Service.
 
-## About Laravel
+<a href="https://codeclimate.com/github/ayocodingit/boilerplate-laravel-8/maintainability"><img src="https://api.codeclimate.com/v1/badges/021fe7fdf0dc5a71adbc/maintainability" /></a>
+<a href="https://codeclimate.com/github/ayocodingit/boilerplate-laravel-8/test_coverage"><img src="https://api.codeclimate.com/v1/badges/021fe7fdf0dc5a71adbc/test_coverage" /></a>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Petunjuk development
+1. Ikuti Development Guides https://github.com/jabardigitalservice/development-guides
+2. Clean Code, ikuti standard style FIG PSR-12 dengan menggunakan PHP Code Sniffer.
+3. Clean Architecture, ikuti Laravel Best practices https://github.com/alexeymezenin/laravel-best-practices
+4. Maksimalkan fitur-fitur built-in Laravel. Minimum dependencies.
+5. Thin Controller. Gunakan Single Action Controller.
+6. Tulis script Unit dan Feature Test.
+7. Horizontal scalable, perhatikan 12-factor https://12factor.net
+8. Log, Log, Log!
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Arsitektur Stack
+1. PHP 7.3|8.0, Laravel ^8.x
+2. MySQL 8, SQLite
+3. Keycloak Identity & Access Management
+4. JWT
+5. Laravel Outh2
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Bagaimana cara memulai development?
+Clone Repository terlebih dahulu:
+```
+$ git clone https://github.com/ayocodingit/boilerplate-laravel-8
+```
 
-## Learning Laravel
+Copy file config dan sesuaikan konfigurasinya
+```
+$ copy .env.example .env
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Install dependencies menggunakan Composer"
+```
+$ composer install
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Jalankan Artisan untuk migrasi dan seed database:
+```
+$ php artisan migrate:fresh --seed
+```
 
-## Laravel Sponsors
+Jalan Artisan Local Development Server:
+```
+$ php artisan serve
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### Run Code Style check
+```
+$ ./vendor/bin/phpcs
+```
 
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Run Unit & Feature Test
+```
+$ ./vendor/bin/phpunit
+```
