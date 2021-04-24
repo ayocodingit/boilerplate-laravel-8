@@ -18,7 +18,7 @@ A Laravel starter project template.
 
 ## Arsitektur Stack
 1. PHP 7.3|8.0, Laravel ^8.x
-2. MySQL 8, SQLite
+2. MySQL, SQLite
 3. Keycloak Identity & Access Management
 4. JWT
 5. Laravel Outh2
