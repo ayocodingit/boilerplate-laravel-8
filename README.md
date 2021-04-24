@@ -1,6 +1,6 @@
-# Aplikasi Reservasi Aset
+# Boilerplate Laravel 8
 
-Backend API untuk Aplikasi Reservasi Aset di Jabar Digital Service.
+A Laravel starter project template.
 
 <a href="https://codeclimate.com/github/ayocodingit/boilerplate-laravel-8/maintainability"><img src="https://api.codeclimate.com/v1/badges/021fe7fdf0dc5a71adbc/maintainability" /></a>
 <a href="https://codeclimate.com/github/ayocodingit/boilerplate-laravel-8/test_coverage"><img src="https://api.codeclimate.com/v1/badges/021fe7fdf0dc5a71adbc/test_coverage" /></a>
