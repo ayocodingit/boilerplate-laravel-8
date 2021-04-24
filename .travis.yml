@@ -1,7 +1,11 @@
 language: php
 
 php:
-    - 7.3
+    - 8.0
+
+notifications:
+  email:
+    on_success: never
 
 before_script:
     - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
@@ -18,3 +22,5 @@ script:
 
 after_script:
     - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+
+
