@@ -63,7 +63,7 @@ $ ./vendor/bin/phpcs
 $ ./vendor/bin/phpunit
 ```
 
-## Contributors
+### Contributors
 ```
 - Firman Alamsyah (ayocoding)
 - Rachadian Novansyah (sedekahcode)
