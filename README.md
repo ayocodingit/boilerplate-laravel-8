@@ -34,6 +34,10 @@ Copy file config dan sesuaikan konfigurasinya
 $ copy .env.example .env
 ```
 
+Generate APP_KEY to .env
+```
+$ php artisan key:generate
+
 Install dependencies menggunakan Composer"
 ```
 $ composer install
@@ -58,3 +62,7 @@ $ ./vendor/bin/phpcs
 ```
 $ ./vendor/bin/phpunit
 ```
+
+### Contributors
+- Firman Alamsyah (ayocoding)
+- Rachadian Novansyah (sedekahcode)
