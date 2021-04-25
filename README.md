@@ -17,10 +17,10 @@ A Laravel starter project template.
 8. Log, Log, Log!
 
 ## Arsitektur Stack
-1. PHP 7.3|8.0, Laravel ^8.x
+1. PHP 8.0, Laravel 8.x
 2. MySQL, SQLite
 3. Keycloak Identity & Access Management
-4. JWT
+4. Laravel spectrum
 5. Laravel Outh2
 
 ## Bagaimana cara memulai development?
