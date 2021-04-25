@@ -5,7 +5,6 @@ if [ "$app" = "app" ]; then
 
     echo "Running the app..."
     ## Run Optimization
-    php /var/www/html/artisan optimize
     /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
 
 elif [ "$app" = "queue" ]; then
