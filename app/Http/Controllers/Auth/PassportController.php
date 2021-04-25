@@ -47,7 +47,7 @@ class PassportController extends Controller
     {
         $request->user()->token()->revoke();
         return response()->json([
-            'message' => 'Successfully logged out'
+            'message' => 'LOGOUT'
         ]);
     }
 }
