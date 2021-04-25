@@ -24,7 +24,8 @@ class User extends Authenticatable
         'email',
         'password',
         'uuid',
-        'role'
+        'role',
+        'email_verified_at'
     ];
 
     /**
@@ -45,27 +46,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public function hasRole($roleName): bool
-    {
-        return $this->role == $roleName;
-    }
-
-    public function hasPermission($permissionName): bool
-    {
-        $permissions = $this->getAttribute('permissions');
-
-        if ($permissions == null) {
-            return false;
-        }
-
-        return in_array($permissionName, $permissions);
-    }
-
-    public function assignPermissions(array $permissions)
-    {
-        $this->setAttribute('permissions', $permissions);
-    }
 
     public function setPasswordAttribute($value)
     {

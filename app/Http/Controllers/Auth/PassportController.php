@@ -38,7 +38,7 @@ class PassportController extends Controller
         return response()->json(['message' => 'CREATED'], Response::HTTP_CREATED);
     }
 
-    public function show(Request $request)
+    public function profile(Request $request)
     {
         return response()->json($request->user());
     }

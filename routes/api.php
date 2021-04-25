@@ -22,5 +22,5 @@ Route::post('register', [PassportController::class, 'register']);
 
 Route::middleware('auth:api')->group(function () {
     Route::get('logout', [PassportController::class, 'logout']);
-    Route::get('user', [PassportController::class, 'show']);
+    Route::get('profile', [PassportController::class, 'profile']);
 });
