@@ -5,7 +5,7 @@ LABEL Maintainer="Firman Ayocoding <ayocodingit@gmail.com>"
 ADD https://dl.bintray.com/php-alpine/key/php-alpine.rsa.pub /etc/apk/keys/php-alpine.rsa.pub
 
 # Install packages
-RUN apk add ca-certificates \
+RUN apk add --no-cache ca-certificates \
     nano \
     php8 \
     php8-fpm \
@@ -41,7 +41,7 @@ RUN apk add ca-certificates \
     composer
 
 # Fix iconv issue when generate pdf
-RUN apk add --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ --allow-untrusted gnu-libiconv
+RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ --allow-untrusted gnu-libiconv
 ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
 
 # https://github.com/codecasts/php-alpine/issues/21
@@ -80,7 +80,8 @@ COPY --chown=nobody . /var/www/html/
 RUN chmod +x docker-config/docker-entrypoint.sh
 
 # Run composer install to install the dependencies
-RUN composer install --no-cache --no-scripts --prefer-dist --no-interaction --no-progress
+RUN composer install --no-cache --no-dev --prefer-dist --optimize-autoloader --no-interaction --no-progress && \
+    composer dump-autoload --optimize
 
 # Expose the port nginx is reachable on
 EXPOSE 8080
