@@ -84,6 +84,7 @@ RUN composer install --no-cache --no-dev --prefer-dist --optimize-autoloader --n
     composer dump-autoload --optimize
 
 RUN php artisan optimize
+RUN php artisan key:generate
 # Expose the port nginx is reachable on
 EXPOSE 8080
 
