@@ -83,7 +83,7 @@ RUN chmod +x docker-config/docker-entrypoint.sh
 RUN composer install --no-cache --no-dev --prefer-dist --optimize-autoloader && \
     composer dump-autoload --optimize
 
-RUN cp .env.example .env
+RUN php -r "file_exists('.env') || copy('.env.example', '.env');"
 RUN php artisan key:generate
 RUN php artisan optimize
 # Expose the port nginx is reachable on
