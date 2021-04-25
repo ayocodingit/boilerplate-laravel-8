@@ -6,7 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -23,6 +23,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'uuid',
+        'role',
+        'email_verified_at'
     ];
 
     /**
@@ -44,24 +47,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function hasRole($roleName): bool
+    public function setPasswordAttribute($value)
     {
-        return $this->role == $roleName;
-    }
-
-    public function hasPermission($permissionName): bool
-    {
-        $permissions = $this->getAttribute('permissions');
-
-        if ($permissions == null) {
-            return false;
-        }
-
-        return in_array($permissionName, $permissions);
-    }
-
-    public function assignPermissions(array $permissions)
-    {
-        $this->setAttribute('permissions', $permissions);
+        $this->attributes['password'] = bcrypt($value);
     }
 }
