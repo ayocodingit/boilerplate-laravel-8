@@ -83,6 +83,7 @@ RUN chmod +x docker-config/docker-entrypoint.sh
 RUN composer install --no-cache --no-dev --prefer-dist --optimize-autoloader --no-interaction --no-progress && \
     composer dump-autoload --optimize
 
+RUN php artisan optimize
 # Expose the port nginx is reachable on
 EXPOSE 8080
 
