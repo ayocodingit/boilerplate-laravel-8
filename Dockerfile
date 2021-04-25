@@ -80,9 +80,10 @@ COPY --chown=nobody . /var/www/html/
 RUN chmod +x docker-config/docker-entrypoint.sh
 
 # Run composer install to install the dependencies
-RUN composer install --no-cache --no-dev --prefer-dist --optimize-autoloader --no-interaction && \
+RUN composer install --no-cache --no-dev --prefer-dist --optimize-autoloader && \
     composer dump-autoload --optimize
 
+RUN cp .env.example .env
 RUN php artisan optimize
 RUN php artisan key:generate
 # Expose the port nginx is reachable on
