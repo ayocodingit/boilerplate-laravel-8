@@ -80,7 +80,7 @@ COPY --chown=nobody . /var/www/html/
 RUN chmod +x docker-config/docker-entrypoint.sh
 
 # Run composer install to install the dependencies
-RUN composer install --no-cache --no-dev --prefer-dist --optimize-autoloader --no-interaction --no-progress && \
+RUN composer install --no-cache --no-dev --prefer-dist --optimize-autoloader --no-interaction && \
     composer dump-autoload --optimize
 
 RUN php artisan optimize
