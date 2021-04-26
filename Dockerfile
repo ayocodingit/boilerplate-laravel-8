@@ -9,7 +9,6 @@ RUN apk --update-cache add ca-certificates
 
 # Install packages
 RUN apk add php8 \
-    php8-fpm \
     php8-json \
     php8-opcache \
     php8-ctype \
@@ -36,9 +35,7 @@ RUN apk add php8 \
     php8-xmlwriter \
     php8-sockets \
     php8-sodium \
-    php8-pcntl \
-    nginx \
-    supervisor
+    php8-pcntl
 
 # Fix iconv issue when generate pdf
 RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ --allow-untrusted gnu-libiconv
@@ -47,27 +44,11 @@ ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
 # https://github.com/codecasts/php-alpine/issues/21
 RUN ln -s /usr/bin/php8 /usr/bin/php
 
-# Configure nginx
-COPY docker-config/nginx.conf /etc/nginx/nginx.conf
-
-# Remove default server definition
-RUN rm /etc/nginx/conf.d/default.conf
-
-# Configure PHP-FPM
-COPY docker-config/fpm-pool.conf /etc/php8/php-fpm.d/www.conf
-COPY docker-config/php.ini /etc/php8/conf.d/custom.ini
-
-# Configure supervisord
-COPY docker-config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
 # Setup document root
 RUN mkdir -p /var/www/html
 
 # Make sure files/folders needed by the processes are accessable when they run under the nobody user
-RUN chown -R nobody.nobody /var/www/html && \
-  chown -R nobody.nobody /run && \
-  chown -R nobody.nobody /var/lib/nginx && \
-  chown -R nobody.nobody /var/log/nginx
+RUN chown -R nobody.nobody /var/www/html
 
 # Switch to use a non-root user from here on
 USER nobody
@@ -89,12 +70,14 @@ RUN php artisan key:generate
 RUN php artisan optimize
 
 ARG DOCKER_APP
-ENV DOCKER_APP $DOCKER_APP
-
 ARG OCTANE_WORKER
+ARG PORT=8080
+
+ENV DOCKER_APP $DOCKER_APP
 ENV OCTANE_WORKER $OCTANE_WORKER
+ENV PORT $PORT
 # Expose the port nginx is reachable on
-EXPOSE 8080
+EXPOSE $PORT
 
 RUN ./vendor/bin/rr get-binary --location .
 
