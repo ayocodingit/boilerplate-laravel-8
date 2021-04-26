@@ -140,7 +140,7 @@ class KeycloakGuard implements Guard
             $user->id = $this->decodedToken->sub;
         }
 
-        $user->name          = optional($this->decodedToken)->name;
+        $user->username          = optional($this->decodedToken)->username;
         $user->email         = optional($this->decodedToken)->email;
         $user->role         = $this->getRealmRoles();
         $user->permissions  = $this->getClientRoles();
