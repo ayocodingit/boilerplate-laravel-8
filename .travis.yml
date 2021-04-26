@@ -16,7 +16,6 @@ install:
     - cp .env.example .env
     - travis_retry composer install --no-interaction --prefer-dist --no-suggest
     - php artisan key:generate --ansi
-    - php artisan optimize
 
 script:
     - XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-text --coverage-clover build/logs/clover.xml
