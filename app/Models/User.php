@@ -33,7 +33,7 @@ class User extends Authenticatable
         'uuid',
         'role',
         'email_verified_at',
-        'permissions'
+        'permissions',
     ];
 
     /**
