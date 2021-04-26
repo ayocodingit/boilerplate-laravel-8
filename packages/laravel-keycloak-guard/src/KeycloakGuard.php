@@ -219,7 +219,9 @@ class KeycloakGuard implements Guard
         $roles = [];
 
         $resourceAccess = (array) $this->decodedToken->resource_access;
-
+        $resourceAccess = Arr::where($resourceAccess, function ($value, $key) {
+            return $key == $this->config['allowed_resources'];
+        });
         foreach ($resourceAccess as $resource) {
             $roles = array_merge($roles, $resource->roles);
         }
