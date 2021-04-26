@@ -7,7 +7,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 
 class PassportController extends Controller
 {
@@ -28,12 +27,12 @@ class PassportController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'email' => 'required|email',
+            'username' => 'required|string',
+            'email' => 'required|string|email',
             'password' => 'required|confirmed',
         ]);
 
-        User::create($request->all() + ['uuid' => Str::uuid()]);
+        User::create($request->all());
 
         return response()->json(['message' => 'CREATED'], Response::HTTP_CREATED);
     }
