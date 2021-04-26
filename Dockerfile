@@ -38,7 +38,6 @@ RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/co
 ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
 
 # https://github.com/codecasts/php-alpine/issues/21
-# RUN rm /usr/bin/php
 RUN ln -s /usr/bin/php8 /usr/bin/php
 
 # Configure nginx
