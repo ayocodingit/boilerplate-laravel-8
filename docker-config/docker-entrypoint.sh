@@ -16,7 +16,7 @@ elif [ "$app" = "queue" ]; then
 elif [ "$app" = "octane" ]; then
 
     echo "Running the app with octane count worker $worker..."
-    php /var/www/html/artisan octane:start --host=0.0.0.0 --port=8080 --workers=$worker -n
+    php /var/www/html/artisan octane:start --host=0.0.0.0 --port=8080 --workers=$worker
 
 elif [ "$app" = "scheduler" ]; then
 
