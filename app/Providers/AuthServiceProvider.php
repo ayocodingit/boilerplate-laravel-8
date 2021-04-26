@@ -25,7 +25,7 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+        // comment when use Auth with KeyCloak
         Passport::routes();
-        //
     }
 }
