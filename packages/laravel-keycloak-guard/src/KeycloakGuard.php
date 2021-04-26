@@ -140,12 +140,9 @@ class KeycloakGuard implements Guard
             $user->id = $this->decodedToken->sub;
         }
 
-        $user->name          = optional($this->decodedToken)->name;
+        $user->username          = optional($this->decodedToken)->name;
         $user->email         = optional($this->decodedToken)->email;
-        $user->province_code = optional($this->decodedToken)->province_code;
-        $user->city_code     = optional($this->decodedToken)->city_code;
-
-        $user->role         = Arr::first($this->getRealmRoles());
+        $user->role         = $this->getRealmRoles();
         $user->permissions  = $this->getClientRoles();
 
         $this->setUser($user);
@@ -222,7 +219,9 @@ class KeycloakGuard implements Guard
         $roles = [];
 
         $resourceAccess = (array) $this->decodedToken->resource_access;
-
+        $resourceAccess = Arr::where($resourceAccess, function ($value, $key) {
+            return $key == $this->config['allowed_resources'];
+        });
         foreach ($resourceAccess as $resource) {
             $roles = array_merge($roles, $resource->roles);
         }
