@@ -2,12 +2,13 @@ FROM alpine:3.13
 
 LABEL Maintainer="Firman Ayocoding <ayocodingit@gmail.com>"
 
-ADD https://dl.bintray.com/php-alpine/key/php-alpine.rsa.pub /etc/apk/keys/php-alpine.rsa.pub
+ADD https://packages.whatwedo.ch/php-alpine.rsa.pub /etc/apk/keys/php-alpine.rsa.pub
+
+# make sure you can use HTTPS
+RUN apk --update-cache add ca-certificates
 
 # Install packages
-RUN apk add --no-cache ca-certificates \
-    nano \
-    php8 \
+RUN apk add php8 \
     php8-fpm \
     php8-json \
     php8-opcache \
@@ -26,9 +27,6 @@ RUN apk add --no-cache ca-certificates \
     php8-zlib \
     php8-sqlite3 \
     php8-tokenizer \
-    php8-fpm \
-    php8-opcache \
-    php8-openssl \
     php8-gd \
     php8-phar \
     php8-fileinfo \
@@ -36,16 +34,17 @@ RUN apk add --no-cache ca-certificates \
     php8-xmlreader \
     php8-simplexml \
     php8-xmlwriter \
+    php8-sockets \
+    php8-sodium \
+    php8-pcntl \
     nginx \
-    supervisor \
-    composer
+    supervisor
 
 # Fix iconv issue when generate pdf
 RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ --allow-untrusted gnu-libiconv
 ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
 
 # https://github.com/codecasts/php-alpine/issues/21
-RUN rm /usr/bin/php
 RUN ln -s /usr/bin/php8 /usr/bin/php
 
 # Configure nginx
@@ -79,8 +78,10 @@ COPY --chown=nobody . /var/www/html/
 
 RUN chmod +x docker-config/docker-entrypoint.sh
 
+# Install composer from the official image
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # Run composer install to install the dependencies
-RUN composer install --no-cache --no-dev --prefer-dist --optimize-autoloader && \
+RUN composer install --no-cache --prefer-dist --optimize-autoloader --no-interaction --no-progress && \
     composer dump-autoload --optimize
 
 RUN php -r "file_exists('.env') || copy('.env.example', '.env');"
@@ -89,8 +90,15 @@ RUN php artisan optimize
 
 ARG DOCKER_APP
 ENV DOCKER_APP $DOCKER_APP
+
+ARG OCTANE_WORKER
+ENV OCTANE_WORKER $OCTANE_WORKER
 # Expose the port nginx is reachable on
 EXPOSE 8080
+
+RUN ./vendor/bin/rr get-binary --location .
+
+RUN chmod u+x rr
 
 # Let supervisord start nginx & php-fpm
 ENTRYPOINT [ "docker-config/docker-entrypoint.sh" ]
