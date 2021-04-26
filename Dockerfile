@@ -10,15 +10,18 @@ RUN apk --update-cache add ca-certificates
 # Install packages
 RUN apk add php8 \
     php8-fpm \
+    php8-json \
     php8-opcache \
     php8-ctype \
     php8-curl \
     php8-dom \
     php8-iconv \
+    php8-intl \
     php8-mbstring \
     php8-pdo_mysql \
     php8-pdo_sqlite \
     php8-openssl \
+    php8-redis \
     php8-session \
     php8-zip \
     php8-zlib \
