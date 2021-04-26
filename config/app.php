@@ -163,6 +163,9 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        /*
+         * Service Provider Passport...
+         */
         Laravel\Passport\PassportServiceProvider::class,
 
         /*
@@ -177,7 +180,10 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        KeycloakGuard\KeycloakGuardServiceProvider::class,
+        /*
+         * Service Provider Keycloack...
+         */
+        // KeycloakGuard\KeycloakGuardServiceProvider::class,
 
 
     ],
