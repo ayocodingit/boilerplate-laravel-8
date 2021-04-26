@@ -66,6 +66,7 @@ class User extends Authenticatable
              $model->id = self::generateUuid();
          });
     }
+
     public static function generateUuid()
     {
          return Uuid::generate();
