@@ -16,14 +16,14 @@ class PassportTest extends TestCase
     public function testRegister()
     {
         $data = [
-            'name' => $this->faker->name(),
+            'username' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now()->toDateTimeString(),
             'password' => 'password', // password
             'password_confirmation' => 'password', // password
         ];
 
-        $this->postJson('/api/register', $data)
+        $this->postJson('/api/auth/register', $data)
              ->assertStatus(Response::HTTP_CREATED);
         unset($data['password_confirmation']);
         unset($data['password']);
@@ -40,7 +40,7 @@ class PassportTest extends TestCase
             'password' => 'password'
         ];
 
-        $this->postJson('/api/login', $dataLogin)
+        $this->postJson('/api/auth/login', $dataLogin)
              ->assertStatus(Response::HTTP_OK)
              ->assertJsonStructure(['access_token', 'token_type', 'expires_at']);
     }
@@ -55,7 +55,7 @@ class PassportTest extends TestCase
             'password' => $data->password
         ];
 
-        $this->postJson('/api/login', $dataLogin)
+        $this->postJson('/api/auth/login', $dataLogin)
              ->assertStatus(Response::HTTP_UNAUTHORIZED)
              ->assertJsonStructure(['error']);
     }
@@ -70,13 +70,13 @@ class PassportTest extends TestCase
             'password' => 'password'
         ];
 
-        $user = $this->postJson('/api/login', $dataLogin)->getContent();
+        $user = $this->postJson('/api/auth/login', $dataLogin)->getContent();
         $accessToken = json_decode($user)->access_token;
 
         $headers = [
             'Authorization' => "Bearer $accessToken"
         ];
-        $this->getJson('/api/profile', $headers)
+        $this->getJson('/api/auth/profile', $headers)
              ->assertStatus(Response::HTTP_OK);
 
     }
@@ -91,13 +91,13 @@ class PassportTest extends TestCase
             'password' => 'password'
         ];
 
-        $user = $this->postJson('/api/login', $dataLogin)->getContent();
+        $user = $this->postJson('/api/auth/login', $dataLogin)->getContent();
         $accessToken = json_decode($user)->access_token;
 
         $headers = [
             'Authorization' => "Bearers $accessToken"
         ];
-        $this->getJson('/api/profile', $headers)
+        $this->getJson('/api/auth/profile', $headers)
              ->assertStatus(Response::HTTP_UNAUTHORIZED);
 
     }
@@ -112,13 +112,13 @@ class PassportTest extends TestCase
             'password' => 'password'
         ];
 
-        $user = $this->postJson('/api/login', $dataLogin)->getContent();
+        $user = $this->postJson('/api/auth/login', $dataLogin)->getContent();
         $accessToken = json_decode($user)->access_token;
 
         $headers = [
             'Authorization' => "Bearer $accessToken"
         ];
-        $this->getJson('/api/logout', $headers)
+        $this->getJson('/api/auth/logout', $headers)
              ->assertStatus(Response::HTTP_OK);
 
     }
