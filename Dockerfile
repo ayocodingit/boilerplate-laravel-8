@@ -44,7 +44,7 @@ ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
 # https://github.com/codecasts/php-alpine/issues/21
 RUN ln -s /usr/bin/php8 /usr/bin/php
 
-COPY docker-config/php.ini /etc/php7/conf.d/custom.ini
+COPY docker-config/php.ini /etc/php8/conf.d/custom.ini
 
 # Setup document root
 RUN mkdir -p /var/www/html
