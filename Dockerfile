@@ -5,7 +5,7 @@ ADD https://packages.whatwedo.ch/php-alpine.rsa.pub /etc/apk/keys/php-alpine.rsa
 RUN apk --update-cache add ca-certificates
 
 # Install packages
-RUN apk add php8 \
+RUN apk --no-cache add php8 \
     php8-fpm \
     php8-json \
     php8-opcache \
