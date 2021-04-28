@@ -36,6 +36,7 @@ RUN apk add php8 \
     php8-posix \
     php8-iconv \
     nginx \
+    curl \
     supervisor
 
 
