@@ -10,7 +10,6 @@ RUN echo "https://dl.bintray.com/php-alpine/v3.11/php-8.0" >> /etc/apk/repositor
 
 # Install packages
 RUN apk add php8 \
-    php8-common \
     php8-fpm \
     php8-opcache \
     php8-ctype \
@@ -24,8 +23,8 @@ RUN apk add php8 \
     php8-openssl \
     php8-redis \
     php8-session \
-    php8-zlib \
     php8-zip \
+    php8-zlib \
     php8-sqlite3 \
     php8-gd \
     php8-phar \
@@ -35,22 +34,14 @@ RUN apk add php8 \
     php8-sodium \
     php8-pcntl \
     php8-posix \
-    php8-dev \
+    php8-iconv \
     nginx \
     supervisor
 
 
-# Fix iconv issue when generate pdf
-RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ --allow-untrusted gnu-libiconv
-ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
 # https://github.com/codecasts/php-alpine/issues/21
 RUN ln -s /usr/bin/php8 /usr/bin/php
 
-# Fix zlib not found when adding fix iconv
-COPY docker-config/php-module/00_zlib.ini /etc/php8/conf.d/00_zlib.ini
-COPY docker-config/php-module/zlib.so /usr/lib/php8/modules/zlib.so
-
-RUN chmod -R 777 /usr/lib/php8/modules/zlib.so
 # Configure nginx
 COPY docker-config/nginx.conf /etc/nginx/nginx.conf
 
@@ -69,9 +60,9 @@ RUN mkdir -p /var/www/html
 
 # Make sure files/folders needed by the processes are accessable when they run under the nobody user
 RUN chown -R nobody.nobody /var/www/html && \
-  chown -R nobody.nobody /run && \
-  chown -R nobody.nobody /var/lib/nginx && \
-  chown -R nobody.nobody /var/log/nginx
+    chown -R nobody.nobody /run && \
+    chown -R nobody.nobody /var/lib/nginx && \
+    chown -R nobody.nobody /var/log/nginx
 
 # Switch to use a non-root user from here on
 USER nobody
