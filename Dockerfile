@@ -1,13 +1,17 @@
-FROM alpine:3.13
+FROM alpine:3.11
+
 LABEL Maintainer="Firman Ayocoding <ayocodingit@gmail.com>"
-ADD https://packages.whatwedo.ch/php-alpine.rsa.pub /etc/apk/keys/php-alpine.rsa.pub
+
+ADD https://dl.bintray.com/php-alpine/key/php-alpine.rsa.pub /etc/apk/keys/php-alpine.rsa.pub
 # make sure you can use HTTPS
-RUN apk --update-cache add ca-certificates
+RUN apk --update add ca-certificates
+
+RUN echo "https://dl.bintray.com/php-alpine/v3.11/php-8.0" >> /etc/apk/repositories
 
 # Install packages
-RUN apk --no-cache add php8 \
+RUN apk add php8 \
+    php8-common \
     php8-fpm \
-    php8-json \
     php8-opcache \
     php8-ctype \
     php8-curl \
@@ -20,22 +24,21 @@ RUN apk --no-cache add php8 \
     php8-openssl \
     php8-redis \
     php8-session \
-    php8-zip \
     php8-zlib \
+    php8-zip \
     php8-sqlite3 \
-    php8-tokenizer \
     php8-gd \
     php8-phar \
-    php8-fileinfo \
     php8-xml \
     php8-xmlreader \
-    php8-simplexml \
-    php8-xmlwriter \
     php8-sockets \
     php8-sodium \
     php8-pcntl \
+    php8-posix \
+    php8-dev \
     nginx \
     supervisor
+
 
 # Fix iconv issue when generate pdf
 RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ --allow-untrusted gnu-libiconv
@@ -43,6 +46,11 @@ ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
 # https://github.com/codecasts/php-alpine/issues/21
 RUN ln -s /usr/bin/php8 /usr/bin/php
 
+# Fix zlib not found when adding fix iconv
+COPY docker-config/php-module/00_zlib.ini /etc/php8/conf.d/00_zlib.ini
+COPY docker-config/php-module/zlib.so /usr/lib/php8/modules/zlib.so
+
+RUN chmod -R 777 /usr/lib/php8/modules/zlib.so
 # Configure nginx
 COPY docker-config/nginx.conf /etc/nginx/nginx.conf
 
@@ -76,6 +84,8 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # Run composer install to install the dependencies
 RUN composer install --no-cache --prefer-dist --optimize-autoloader --no-interaction --no-progress && \
     composer dump-autoload --optimize
+
+
 RUN php -r "file_exists('.env') || copy('.env.example', '.env');"
 RUN php artisan key:generate
 RUN php artisan optimize
@@ -88,7 +98,7 @@ ENV OCTANE_WORKER $OCTANE_WORKER
 # Expose the port nginx is reachable on
 EXPOSE 8080
 
-RUN ./vendor/bin/rr get-binary --location .
+RUN ./vendor/bin/rr get-binary
 
 RUN chmod u+x rr
 # Let supervisord start nginx & php-fpm
