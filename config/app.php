@@ -165,6 +165,7 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
         KeycloakGuard\KeycloakGuardServiceProvider::class,
+        SwooleTW\Http\LaravelServiceProvider::class,
 
         /*
          * Package Service Providers...
