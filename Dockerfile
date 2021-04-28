@@ -35,6 +35,7 @@ RUN apk add php8 \
     php8-pcntl \
     php8-posix \
     php8-iconv \
+    php8-swoole \
     nginx \
     supervisor
 
@@ -84,6 +85,9 @@ ENV DOCKER_APP $DOCKER_APP
 
 ARG OCTANE_WORKER
 ENV OCTANE_WORKER $OCTANE_WORKER
+
+ARG OCTANE_SERVER
+ENV OCTANE_SERVER $OCTANE_SERVER
 # Expose the port nginx is reachable on
 EXPOSE 8080
 # Let supervisord start nginx & php-fpm

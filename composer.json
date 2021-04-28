@@ -23,6 +23,7 @@
         "spiral/roadrunner": "^2.0",
         "spiral/roadrunner-laravel": "^4.0",
         "squizlabs/php_codesniffer": "^3.6",
+        "swooletw/laravel-swoole": "^2.8",
         "webpatser/laravel-uuid": "^4.0"
     },
     "require-dev": {
