@@ -42,7 +42,7 @@ return [
         ],
 
         'api' => [
-            'driver' => 'passport',
+            'driver' => 'passport', //driver api available passport or keycloak
             'provider' => 'users'
         ],
     ],
