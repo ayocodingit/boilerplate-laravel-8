@@ -4,7 +4,7 @@ LABEL Maintainer="Firman Ayocoding <ayocodingit@gmail.com>"
 
 ADD https://dl.bintray.com/php-alpine/key/php-alpine.rsa.pub /etc/apk/keys/php-alpine.rsa.pub
 # make sure you can use HTTPS
-RUN apk --update add ca-certificates
+RUN apk --update-cache add ca-certificates
 
 RUN echo "https://dl.bintray.com/php-alpine/v3.11/php-8.0" >> /etc/apk/repositories
 
@@ -36,9 +36,7 @@ RUN apk add php8 \
     php8-posix \
     php8-iconv \
     nginx \
-    curl \
     supervisor
-
 
 # https://github.com/codecasts/php-alpine/issues/21
 RUN ln -s /usr/bin/php8 /usr/bin/php
@@ -74,8 +72,7 @@ RUN chmod +x docker-config/docker-entrypoint.sh
 # Install composer from the official image
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # Run composer install to install the dependencies
-RUN composer install --no-cache --prefer-dist --optimize-autoloader --no-interaction --no-progress && \
-    composer dump-autoload --optimize
+RUN composer install
 
 
 RUN php -r "file_exists('.env') || copy('.env.example', '.env');"
@@ -89,9 +86,5 @@ ARG OCTANE_WORKER
 ENV OCTANE_WORKER $OCTANE_WORKER
 # Expose the port nginx is reachable on
 EXPOSE 8080
-
-RUN ./vendor/bin/rr get-binary
-
-RUN chmod u+x rr
 # Let supervisord start nginx & php-fpm
 ENTRYPOINT [ "docker-config/docker-entrypoint.sh" ]

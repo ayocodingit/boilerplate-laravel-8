@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "865c49c54fa5e8ee20117ee1bc2e8883",
+    "content-hash": "3b6d43cc842430fa783b8f738f9e8a7c",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -6166,6 +6166,78 @@
                 "source": "https://github.com/spiral/roadrunner-http/tree/v2.0.0"
             },
             "time": "2021-02-18T11:09:37+00:00"
+        },
+        {
+            "name": "spiral/roadrunner-laravel",
+            "version": "v4.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spiral/roadrunner-laravel.git",
+                "reference": "5750fe9d4808da7809670c89e77ed9b4ca4bf44b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spiral/roadrunner-laravel/zipball/5750fe9d4808da7809670c89e77ed9b4ca4bf44b",
+                "reference": "5750fe9d4808da7809670c89e77ed9b4ca4bf44b",
+                "shasum": ""
+            },
+            "require": {
+                "composer-runtime-api": "^2.0",
+                "illuminate/contracts": "~6.0 || ~7.0 || ~8.0",
+                "illuminate/http": "~6.0 || ~7.0 || ~8.0",
+                "illuminate/routing": "~6.0 || ~7.0 || ~8.0",
+                "illuminate/support": "~6.0 || ~7.0 || ~8.0",
+                "laminas/laminas-diactoros": "^2",
+                "php": "^7.4 || ^8.0",
+                "spiral/roadrunner-http": "^2.0",
+                "spiral/roadrunner-worker": "^2.0",
+                "symfony/console": "^4.3.4 || ^5.0",
+                "symfony/psr-http-message-bridge": "^1.2 || ^2.0"
+            },
+            "require-dev": {
+                "guzzlehttp/guzzle": "^6.3 || ~7.0",
+                "laravel/laravel": "~6.0 || ~7.0 || ~8.0",
+                "mockery/mockery": "^1.3.2",
+                "phpstan/phpstan": "~0.12.80",
+                "phpunit/phpunit": "^8.0 || ^9.3"
+            },
+            "bin": [
+                "bin/rr-worker"
+            ],
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Spiral\\RoadRunnerLaravel\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Spiral\\RoadRunnerLaravel\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "tarampampam",
+                    "homepage": "https://github.com/tarampampam"
+                }
+            ],
+            "description": "RoadRunner bridge for Laravel applications",
+            "keywords": [
+                "Bridge",
+                "laravel",
+                "roadrunner"
+            ],
+            "support": {
+                "issues": "https://github.com/spiral/roadrunner-laravel/issues",
+                "source": "https://github.com/spiral/roadrunner-laravel"
+            },
+            "time": "2021-03-12T20:07:57+00:00"
         },
         {
             "name": "spiral/roadrunner-worker",
