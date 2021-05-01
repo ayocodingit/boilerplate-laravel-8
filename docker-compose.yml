@@ -1,0 +1,12 @@
+version: '2'
+services:
+  app:
+    build: .
+    restart: always
+    container_name: php-8
+    env_file:
+      - .env.example
+    ports:
+      - "8086:8080"
+    mem_limit: 1073741824
+    cpuset: '2'
