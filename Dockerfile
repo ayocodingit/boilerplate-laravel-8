@@ -10,7 +10,7 @@ RUN echo "https://dl.bintray.com/php-alpine/v3.11/php-8.0" >> /etc/apk/repositor
 
 # Install packages
 RUN apk add php8 \
-    php8-fpm \
+    php8-phar \
     php8-opcache \
     php8-ctype \
     php8-curl \
@@ -27,29 +27,18 @@ RUN apk add php8 \
     php8-zlib \
     php8-sqlite3 \
     php8-gd \
-    php8-phar \
     php8-xml \
     php8-xmlreader \
     php8-sockets \
-    php8-sodium \
     php8-pcntl \
-    php8-posix \
-    php8-iconv \
+    php8-sodium \
     php8-swoole \
-    nginx \
     supervisor
 
 # https://github.com/codecasts/php-alpine/issues/21
 RUN ln -s /usr/bin/php8 /usr/bin/php
 
-# Configure nginx
-COPY docker-config/nginx.conf /etc/nginx/nginx.conf
-
-# Remove default server definition
-RUN rm /etc/nginx/conf.d/default.conf
-
 # Configure PHP-FPM
-COPY docker-config/fpm-pool.conf /etc/php8/php-fpm.d/www.conf
 COPY docker-config/php.ini /etc/php8/conf.d/custom.ini
 
 # Configure supervisord
@@ -60,9 +49,7 @@ RUN mkdir -p /var/www/html
 
 # Make sure files/folders needed by the processes are accessable when they run under the nobody user
 RUN chown -R nobody.nobody /var/www/html && \
-    chown -R nobody.nobody /run && \
-    chown -R nobody.nobody /var/lib/nginx && \
-    chown -R nobody.nobody /var/log/nginx
+    chown -R nobody.nobody /run
 
 # Switch to use a non-root user from here on
 USER nobody
@@ -75,19 +62,12 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # Run composer install to install the dependencies
 RUN composer install
 
-
 RUN php -r "file_exists('.env') || copy('.env.example', '.env');"
 RUN php artisan key:generate
 RUN php artisan optimize
 
 ARG DOCKER_APP
 ENV DOCKER_APP $DOCKER_APP
-
-ARG OCTANE_WORKER
-ENV OCTANE_WORKER $OCTANE_WORKER
-
-ARG OCTANE_SERVER
-ENV OCTANE_SERVER $OCTANE_SERVER
 # Expose the port nginx is reachable on
 EXPOSE 8080
 # Let supervisord start nginx & php-fpm
