@@ -60,7 +60,7 @@ RUN chmod +x docker-config/docker-entrypoint.sh
 # Install composer from the official image
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # Run composer install to install the dependencies
-RUN composer install
+RUN composer install --no-dev --optimize-autoloader
 
 RUN php -r "file_exists('.env') || copy('.env.example', '.env');"
 RUN php artisan key:generate
