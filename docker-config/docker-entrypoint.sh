@@ -18,7 +18,7 @@ elif [ "$app" = "scheduler" ]; then
     echo "Running the scheduler..."
     while [ true ]
     do
-        php /var/www/html/artisan scheduler:run --no-interaction &
+        php /var/www/html/artisan schedule:run --no-interaction &
         sleep 60
     done
 else
