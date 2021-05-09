@@ -15,10 +15,10 @@ A Laravel starter project template.
 6. Horizontal scalable, perhatikan 12-factor https://12factor.net
 
 ## Arsitektur Stack
-1. PHP 8.0, Laravel 8.x
-2. MySQL, SQLite
-3. Keycloak Identity & Access Management
-4. Laravel spectrum
+1. PHP ^8.0  
+2. Laravel 8.x
+3. MySQL, SQLite
+4. Laravel spectrum, Keycloak Identity & Access Management
 
 ## Bagaimana cara memulai development?
 Clone Repository terlebih dahulu:
