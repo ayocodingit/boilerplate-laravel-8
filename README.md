@@ -19,7 +19,6 @@ A Laravel starter project template.
 2. MySQL, SQLite
 3. Keycloak Identity & Access Management
 4. Laravel spectrum
-5. Set ENV Docker_APP untuk menjalankan sebagai aplikasi, queue atau scheduler
 
 ## Bagaimana cara memulai development?
 Clone Repository terlebih dahulu:
@@ -64,7 +63,8 @@ terdapat 2 cara deploy pada server yaitu Base Dockerfile atau Base Docker Compos
 1. git
 2. docker
 3. docker-compose
-4. port export 8080
+4. port 8080
+5. Set ENV Docker_APP untuk menjalankan sebagai Aplikasi (app), Queue (queue) atau Scheduler (scheduler)
 
 ### Base Dockerfile
 1. Clone Repository terlebih dahulu:
