@@ -82,10 +82,10 @@ COPY --chown=nobody . /var/www/html/
 RUN chmod +x docker-config/docker-entrypoint.sh
 
 # Install composer from the official image
-COPY --from=composer:2.0.9 /usr/bin/composer /usr/local/bin/composer
+COPY --from=composer:2.0.9 /usr/bin/composer /usr/bin/composer
 
 # Run composer install to install the dependencies
-RUN php /usr/local/bin/composer install --no-cache --no-dev --optimize-autoloader
+RUN composer install --no-cache --no-dev --optimize-autoloader --prefer-dist --no-interaction --no-progress
 
 # Set ENV DOCKER APP
 ARG DOCKER_APP
