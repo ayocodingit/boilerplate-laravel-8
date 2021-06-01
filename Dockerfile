@@ -3,17 +3,13 @@ FROM alpine:3.13
 LABEL Maintainer="Firman Ayocoding <ayocodingit@gmail.com>" \
     Description="Lightweight container with Nginx 1.16 & PHP-FPM 8.0 based on Alpine Linux (forked from trafex/alpine-nginx-php8)."
 
-# Set PHP Version
-ARG PHP_VERSION="8.0.2-r0"
-
 # Fix iconv issue when generate pdf
 RUN apk --no-cache add --repository http://dl-cdn.alpinelinux.org/alpine/v3.13/community/ gnu-libiconv
 ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
 
 # Install packages
 RUN apk --no-cache add \
-    nano \
-    php8=${PHP_VERSION} \
+    php8 \
     php8-phar \
     php8-opcache \
     php8-ctype \
