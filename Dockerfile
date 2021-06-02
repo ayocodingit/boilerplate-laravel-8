@@ -43,6 +43,10 @@ RUN apk --no-cache add \
 # https://github.com/codecasts/php-alpine/issues/21
 RUN ln -s /usr/bin/php8 /usr/bin/php
 
+# Configure docker-entrypoint
+COPY docker-config/docker-entrypoint.sh /usr/local/bin/start
+RUN chmod +x /usr/local/bin/start
+
 # Configure nginx
 COPY docker-config/nginx.conf /etc/nginx/nginx.conf
 
@@ -74,9 +78,6 @@ WORKDIR /var/www/html
 # Copy App to Workdir
 COPY --chown=nobody . /var/www/html/
 
-# Permission docker-entrypoint
-RUN chmod +x docker-config/docker-entrypoint.sh
-
 # Install composer from the official image
 COPY --from=composer:2.0.9 /usr/bin/composer /usr/bin/composer
 
@@ -91,4 +92,4 @@ ENV DOCKER_APP $DOCKER_APP
 EXPOSE 8080
 
 # Let supervisord start nginx & php-fpm
-ENTRYPOINT [ "docker-config/docker-entrypoint.sh" ]
+ENTRYPOINT ["/usr/local/bin/start"]
