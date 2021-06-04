@@ -20,9 +20,9 @@ Route::get('/', HomeController::class);
 Route::prefix('auth')->group(function () {
     Route::post('login', [PassportController::class, 'login']);
     Route::post('register', [PassportController::class, 'register']);
+});
 
-    Route::middleware('auth:api')->group(function () {
-        Route::get('logout', [PassportController::class, 'logout']);
-        Route::get('profile', [PassportController::class, 'profile']);
-    });
+Route::middleware('auth:api')->prefix('auth')->group(function () {
+    Route::get('logout', [PassportController::class, 'logout']);
+    Route::get('profile', [PassportController::class, 'profile']);
 });

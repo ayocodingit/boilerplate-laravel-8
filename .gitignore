@@ -4,6 +4,7 @@
 /storage/*.key
 /vendor
 /report
+/certbot
 .env
 .env.backup
 .phpunit.result.cache
